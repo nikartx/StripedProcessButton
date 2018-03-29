@@ -18,10 +18,16 @@ import com.github.nikartm.support.model.StrippedButton;
  */
 public class StripedProgressButton extends AppCompatButton implements Animatable {
 
+    private enum State {
+        PROGRESS, DONE, STOPPED
+    }
+
     private float stripeWidth;
     private float stripeEdge = 5f;
     private float startY;
     private float stopY;
+    private int mainStripeAlpha;
+    private int subStripeAlpha;
 
     private StrippedButton button;
     private AttributeController attrController;
@@ -77,16 +83,18 @@ public class StripedProgressButton extends AppCompatButton implements Animatable
     private void drawStripes(Canvas canvas) {
         int startX = 0;
         int stopX = button.getStripeDegree() / -1;
+        mainStripeAlpha = Util.computeAlpha(button.getMainStripeAlpha());
+        subStripeAlpha = Util.computeAlpha(button.getSubStripeAlpha());
         canvas.drawColor(button.getBackground());
         do {
             paint.setColor(button.getMainStripeColor());
-            paint.setAlpha(button.getMainStripeAlpha());
+            paint.setAlpha(mainStripeAlpha);
             canvas.drawLine(startX, startY, stopX, stopY, paint);
             startX += stripeWidth + 1;
             stopX += stripeWidth + 1;
 
             paint.setColor(button.getSubStripeColor());
-            paint.setAlpha(button.getSubStripeAlpha());
+            paint.setAlpha(subStripeAlpha);
             canvas.drawLine(startX, startY, stopX, stopY, paint);
             startX += stripeWidth + 1;
             stopX += stripeWidth + 1;
@@ -137,8 +145,104 @@ public class StripedProgressButton extends AppCompatButton implements Animatable
         return running == State.PROGRESS;
     }
 
-    private enum State {
-        PROGRESS, DONE, STOPPED
+    public float getStripeWidth() {
+        return button.getStripeWidth();
+    }
+
+    public StripedProgressButton setStripeWidth(float stripeWidth) {
+        button.setStripeWidth(stripeWidth);
+        invalidate();
+        return this;
+    }
+
+    public float getStripeAlpha() {
+        return button.getStripeAlpha();
+    }
+
+    public StripedProgressButton setStripeAlpha(float stripeAlpha) {
+        button.setStripeAlpha(stripeAlpha);
+        invalidate();
+        return this;
+    }
+
+    public float getMainStripeAlpha() {
+        return button.getMainStripeAlpha();
+    }
+
+    public StripedProgressButton setMainStripeAlpha(float mainStripeAlpha) {
+        button.setMainStripeAlpha(mainStripeAlpha);
+        invalidate();
+        return this;
+    }
+
+    public float getSubStripeAlpha() {
+        return button.getSubStripeAlpha();
+    }
+
+    public StripedProgressButton setSubStripeAlpha(float subStripeAlpha) {
+        button.setSubStripeAlpha(subStripeAlpha);
+        invalidate();
+        return this;
+    }
+
+    public int getStripeDegree() {
+        return button.getStripeDegree();
+    }
+
+    public StripedProgressButton setStripeDegree(int stripeDegree) {
+        button.setStripeDegree(stripeDegree);
+        invalidate();
+        return this;
+    }
+
+    public long getDuration() {
+        return button.getDuration();
+    }
+
+    public StripedProgressButton setDuration(long duration) {
+        button.setDuration(duration);
+        invalidate();
+        return this;
+    }
+
+    public int getStripeBackground() {
+        return button.getBackground();
+    }
+
+    public StripedProgressButton setStripeBackground(int background) {
+        button.setBackground(background);
+        invalidate();
+        return this;
+    }
+
+    public int getMainStripeColor() {
+        return button.getMainStripeColor();
+    }
+
+    public StripedProgressButton setMainStripeColor(int mainStripeColor) {
+        button.setMainStripeColor(mainStripeColor);
+        invalidate();
+        return this;
+    }
+
+    public int getSubStripeColor() {
+        return button.getSubStripeColor();
+    }
+
+    public StripedProgressButton setSubStripeColor(int subStripeColor) {
+        button.setSubStripeColor(subStripeColor);
+        invalidate();
+        return this;
+    }
+
+    public boolean isActive() {
+        return button.isActive();
+    }
+
+    public StripedProgressButton setActive(boolean active) {
+        button.setActive(active);
+        invalidate();
+        return this;
     }
 
 }

@@ -7,9 +7,9 @@ package com.github.nikartm.support.model;
 public class StrippedButton {
 
     private float stripeWidth;
-    private int stripeAlpha;
-    private int mainStripeAlpha;
-    private int subStripeAlpha;
+    private float stripeAlpha;
+    private float mainStripeAlpha;
+    private float subStripeAlpha;
     private int stripeDegree;
     private long duration;
     private int background;
@@ -29,29 +29,29 @@ public class StrippedButton {
         return this;
     }
 
-    public int getStripeAlpha() {
+    public float getStripeAlpha() {
         return stripeAlpha;
     }
 
-    public StrippedButton setStripeAlpha(int stripeAlpha) {
+    public StrippedButton setStripeAlpha(float stripeAlpha) {
         this.stripeAlpha = stripeAlpha;
         return this;
     }
 
-    public int getMainStripeAlpha() {
+    public float getMainStripeAlpha() {
         return mainStripeAlpha;
     }
 
-    public StrippedButton setMainStripeAlpha(int mainStripeAlpha) {
+    public StrippedButton setMainStripeAlpha(float mainStripeAlpha) {
         this.mainStripeAlpha = mainStripeAlpha;
         return this;
     }
 
-    public int getSubStripeAlpha() {
+    public float getSubStripeAlpha() {
         return subStripeAlpha;
     }
 
-    public StrippedButton setSubStripeAlpha(int subStripeAlpha) {
+    public StrippedButton setSubStripeAlpha(float subStripeAlpha) {
         this.subStripeAlpha = subStripeAlpha;
         return this;
     }

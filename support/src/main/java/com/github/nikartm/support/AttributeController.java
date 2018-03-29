@@ -35,9 +35,9 @@ public class AttributeController {
             boolean active = typedArray.getBoolean(R.styleable.StripedProgressButton_spb_active, Constants.ACTIVE);
 
             button.setStripeWidth(stripeWidth)
-                    .setStripeAlpha(Util.computeAlpha(stripeAlpha))
-                    .setMainStripeAlpha(Util.computeAlpha(mainStripeAlpha))
-                    .setSubStripeAlpha(Util.computeAlpha(subStripeAlpha))
+                    .setStripeAlpha(stripeAlpha)
+                    .setMainStripeAlpha(mainStripeAlpha)
+                    .setSubStripeAlpha(subStripeAlpha)
                     .setStripeDegree(stripeDegree)
                     .setDuration(duration)
                     .setBackground(background)
