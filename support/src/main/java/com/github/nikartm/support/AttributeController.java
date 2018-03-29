@@ -24,9 +24,9 @@ public class AttributeController {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.StripedProgressButton);
         try {
             float stripeWidth = typedArray.getDimension(R.styleable.StripedProgressButton_spb_stripeWidth, Constants.STRIPE_WIDTH);
-            int stripeAlpha = typedArray.getInt(R.styleable.StripedProgressButton_spb_stripeAlpha, Constants.STRIPE_ALPHA);
-            int mainStripeAlpha = typedArray.getInt(R.styleable.StripedProgressButton_spb_mainStripeAlpha, Constants.MAIN_STRIPE_ALPHA);
-            int subStripeAlpha = typedArray.getInt(R.styleable.StripedProgressButton_spb_mainStripeAlpha, Constants.SUB_STRIPE_ALPHA);
+            float stripeAlpha = typedArray.getFloat(R.styleable.StripedProgressButton_spb_stripeAlpha, Constants.STRIPE_ALPHA);
+            float mainStripeAlpha = typedArray.getFloat(R.styleable.StripedProgressButton_spb_mainStripeAlpha, stripeAlpha);
+            float subStripeAlpha = typedArray.getFloat(R.styleable.StripedProgressButton_spb_subStripeAlpha, stripeAlpha);
             int stripeDegree = typedArray.getInt(R.styleable.StripedProgressButton_spb_degree, Constants.STRIPE_DEGREE);
             int duration = typedArray.getInt(R.styleable.StripedProgressButton_spb_duration, Constants.DURATION);
             int background = typedArray.getColor(R.styleable.StripedProgressButton_spb_background, Constants.DEF_BACKGROUND);
@@ -35,10 +35,10 @@ public class AttributeController {
             boolean active = typedArray.getBoolean(R.styleable.StripedProgressButton_spb_active, Constants.ACTIVE);
 
             button.setStripeWidth(stripeWidth)
-                    .setStripeAlpha(stripeAlpha)
-                    .setMainStripeAlpha(mainStripeAlpha)
-                    .setSubStripeAlpha(subStripeAlpha)
-                    .setStripeAngle(stripeDegree)
+                    .setStripeAlpha(Util.computeAlpha(stripeAlpha))
+                    .setMainStripeAlpha(Util.computeAlpha(mainStripeAlpha))
+                    .setSubStripeAlpha(Util.computeAlpha(subStripeAlpha))
+                    .setStripeDegree(stripeDegree)
                     .setDuration(duration)
                     .setBackground(background)
                     .setMainStripeColor(mainStripeColor)

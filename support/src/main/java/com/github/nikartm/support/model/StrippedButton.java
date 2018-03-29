@@ -10,7 +10,7 @@ public class StrippedButton {
     private int stripeAlpha;
     private int mainStripeAlpha;
     private int subStripeAlpha;
-    private int stripeAngle;
+    private int stripeDegree;
     private long duration;
     private int background;
     private int mainStripeColor;
@@ -56,12 +56,12 @@ public class StrippedButton {
         return this;
     }
 
-    public int getStripeAngle() {
-        return stripeAngle;
+    public int getStripeDegree() {
+        return stripeDegree;
     }
 
-    public StrippedButton setStripeAngle(int stripeAngle) {
-        this.stripeAngle = stripeAngle;
+    public StrippedButton setStripeDegree(int stripeDegree) {
+        this.stripeDegree = stripeDegree;
         return this;
     }
 

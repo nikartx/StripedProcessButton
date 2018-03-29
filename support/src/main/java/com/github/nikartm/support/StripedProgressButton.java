@@ -76,7 +76,7 @@ public class StripedProgressButton extends AppCompatButton implements Animatable
 
     private void drawStripes(Canvas canvas) {
         int startX = 0;
-        int stopX = button.getStripeAngle() / -1;
+        int stopX = button.getStripeDegree() / -1;
         canvas.drawColor(button.getBackground());
         do {
             paint.setColor(button.getMainStripeColor());
@@ -90,7 +90,7 @@ public class StripedProgressButton extends AppCompatButton implements Animatable
             canvas.drawLine(startX, startY, stopX, stopY, paint);
             startX += stripeWidth + 1;
             stopX += stripeWidth + 1;
-        } while (startX < getWidth() + button.getStripeAngle());
+        } while (startX < getWidth() + button.getStripeDegree());
     }
 
     private void startAnimation() {

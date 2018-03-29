@@ -3,9 +3,9 @@
     <declare-styleable name="StripedProgressButton">
 
         <attr name="spb_stripeWidth" format="dimension" />
-        <attr name="spb_stripeAlpha" format="integer" />
-        <attr name="spb_mainStripeAlpha" format="integer" />
-        <attr name="spb_subStripeAlpha" format="integer" />
+        <attr name="spb_stripeAlpha" format="float" />
+        <attr name="spb_mainStripeAlpha" format="float" />
+        <attr name="spb_subStripeAlpha" format="float" />
         <attr name="spb_degree" format="integer" />
         <attr name="spb_duration" format="integer" />
         <attr name="spb_background" format="color" />
