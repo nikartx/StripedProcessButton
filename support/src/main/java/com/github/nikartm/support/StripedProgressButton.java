@@ -68,23 +68,29 @@ public class StripedProgressButton extends AppCompatButton implements Animatable
 
     @Override
     protected void onDraw(Canvas canvas) {
+        if (button.isActive()) {
+            adjustView();
+            drawStripes(canvas);
+            startAnimation();
+        }
+        super.onDraw(canvas);
+    }
+
+    private void adjustView() {
         if (paint == null) {
             paint = new Paint();
             paint.setAntiAlias(true);
             paint.setStrokeWidth(stripeWidth);
             startY = stripeEdge / -1;
             stopY = getHeight() + stripeEdge;
+            mainStripeAlpha = Util.computeAlpha(button.getMainStripeAlpha());
+            subStripeAlpha = Util.computeAlpha(button.getSubStripeAlpha());
         }
-        drawStripes(canvas);
-        startAnimation();
-        super.onDraw(canvas);
     }
 
     private void drawStripes(Canvas canvas) {
         int startX = 0;
         int stopX = button.getStripeDegree() / -1;
-        mainStripeAlpha = Util.computeAlpha(button.getMainStripeAlpha());
-        subStripeAlpha = Util.computeAlpha(button.getSubStripeAlpha());
         canvas.drawColor(button.getBackground());
         do {
             paint.setColor(button.getMainStripeColor());
