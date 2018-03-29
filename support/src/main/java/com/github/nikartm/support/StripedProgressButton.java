@@ -1,5 +1,7 @@
 package com.github.nikartm.support;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -8,6 +10,8 @@ import android.graphics.Paint;
 import android.graphics.drawable.Animatable;
 import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
+
+import com.github.nikartm.support.constant.Constants;
 
 /**
  * @author Ivan V on 29.03.2018.
@@ -24,9 +28,9 @@ public class StripedProgressButton extends AppCompatButton implements Animatable
     private float stopY;
     private float density;
 
-    private int colorBackground = Color.parseColor("#4CAF50");
-    private int colorMainStripe = Color.parseColor("#4CAF50");
-    private int colorSecondaryStripe = Color.parseColor("#CFD8DC");
+    private int background = Constants.colorBackground;
+    private int mainStripe = Constants.colorMainStripe;
+    private int secondaryStripe = Constants.colorSecondaryStripe;
 
     private Paint paint;
     private ValueAnimator btnAnimator;
@@ -65,21 +69,22 @@ public class StripedProgressButton extends AppCompatButton implements Animatable
             stopY = getHeight() + stripeEdge;
         }
         drawStripes(canvas);
+        startAnimation();
         super.onDraw(canvas);
     }
 
     private void drawStripes(Canvas canvas) {
         int startX = 0;
         int stopX = stripeDegree / -1;
-        canvas.drawColor(colorBackground);
+        canvas.drawColor(background);
         do {
-            paint.setColor(colorMainStripe);
+            paint.setColor(mainStripe);
             paint.setAlpha(stripeAlpha);
             canvas.drawLine(startX, startY, stopX, stopY, paint);
             startX += stripeWidth + 1;
             stopX += stripeWidth + 1;
 
-            paint.setColor(colorSecondaryStripe);
+            paint.setColor(secondaryStripe);
             paint.setAlpha(stripeAlpha);
             canvas.drawLine(startX, startY, stopX, stopY, paint);
             startX += stripeWidth + 1;
@@ -87,19 +92,52 @@ public class StripedProgressButton extends AppCompatButton implements Animatable
         } while (startX < getWidth() + stripeDegree);
     }
 
+    private void startAnimation() {
+        if (btnAnimator == null && running == State.STOPPED) {
+            btnAnimator = ValueAnimator.ofInt(0, 1);
+            btnAnimator.setRepeatCount(ValueAnimator.INFINITE);
+            btnAnimator.setDuration(duration);
+            btnAnimator.addListener(new AnimatorListenerAdapter() {
+                boolean changeStripeColor = true;
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+                    if (changeStripeColor) {
+                        changeStripeColor = false;
+                        mainStripe = Constants.colorSecondaryStripe;
+                        secondaryStripe = Constants.colorMainStripe;
+                    } else {
+                        changeStripeColor = true;
+                        mainStripe = Constants.colorMainStripe;
+                        secondaryStripe = Constants.colorSecondaryStripe;
+                    }
+                    postInvalidate();
+                }
+            });
+            start();
+        }
+    }
+
     @Override
     public void start() {
-
+        if (isRunning()) {
+            return;
+        }
+        running = State.PROGRESS;
+        btnAnimator.start();
     }
 
     @Override
     public void stop() {
-
+        if (!isRunning()) {
+            return;
+        }
+        running = State.STOPPED;
+        btnAnimator.cancel();
     }
 
     @Override
     public boolean isRunning() {
-        return false;
+        return running == State.PROGRESS;
     }
 
     private enum State {

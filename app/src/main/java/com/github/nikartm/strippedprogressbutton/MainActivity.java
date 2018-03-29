@@ -18,5 +18,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         btnStart = findViewById(R.id.btn_start);
         btnStop = findViewById(R.id.btn_stop);
+
+        btnStart.setOnClickListener(v -> btnStart.start());
+        btnStop.setOnClickListener(v -> btnStart.stop());
     }
 }
