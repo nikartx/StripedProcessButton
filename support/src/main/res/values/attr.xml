@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="StripedProgressButton">
+
+        <attr name="spb_stripeWidth" format="dimension" />
+        <attr name="spb_stripeAlpha" format="integer" />
+        <attr name="spb_mainStripeAlpha" format="integer" />
+        <attr name="spb_subStripeAlpha" format="integer" />
+        <attr name="spb_degree" format="integer" />
+        <attr name="spb_duration" format="integer" />
+        <attr name="spb_background" format="color" />
+        <attr name="spb_mainStripColor" format="color" />
+        <attr name="spb_subStripeColor" format="color" />
+        <attr name="spb_active" format="boolean" />
+
+    </declare-styleable>
+</resources>

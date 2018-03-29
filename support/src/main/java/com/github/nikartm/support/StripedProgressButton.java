@@ -10,7 +10,7 @@ import android.graphics.drawable.Animatable;
 import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 
-import com.github.nikartm.support.constant.Constants;
+import com.github.nikartm.support.model.StrippedButton;
 
 /**
  * @author Ivan V on 29.03.2018.
@@ -18,33 +18,35 @@ import com.github.nikartm.support.constant.Constants;
  */
 public class StripedProgressButton extends AppCompatButton implements Animatable {
 
-    private float stripeWidth = 7f;
-    private int stripeAlpha = 0x90;
-    private int stripeDegree = 40;
-    private long duration = 150L;
+    private float stripeWidth;
     private float stripeEdge = 5f;
     private float startY;
     private float stopY;
-    private float density;
 
-    private int background = Constants.DEF_BACKGROUND;
-    private int mainStripe = Constants.DEF_MAIN_STRIPE;
-    private int secondaryStripe = Constants.DEF_SEC_STRIPE;
-
+    private StrippedButton button;
+    private AttributeController attrController;
     private Paint paint;
     private ValueAnimator btnAnimator;
     private State running = State.STOPPED;
 
     public StripedProgressButton(Context context) {
         super(context);
+        initAttrs(null);
     }
 
     public StripedProgressButton(Context context, AttributeSet attrs) {
         super(context, attrs);
+        initAttrs(attrs);
     }
 
     public StripedProgressButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        initAttrs(attrs);
+    }
+
+    private void initAttrs(AttributeSet attrs) {
+        attrController = new AttributeController(getContext(), attrs);
+        button = attrController.getButton();
     }
 
     @Override
@@ -54,8 +56,8 @@ public class StripedProgressButton extends AppCompatButton implements Animatable
     }
 
     private void stripedWidthToDp() {
-        density = getContext().getResources().getDisplayMetrics().density;
-        stripeWidth = stripeWidth * density;
+        float density = getContext().getResources().getDisplayMetrics().density;
+        stripeWidth = button.getStripeWidth() * density;
     }
 
     @Override
@@ -74,32 +76,32 @@ public class StripedProgressButton extends AppCompatButton implements Animatable
 
     private void drawStripes(Canvas canvas) {
         int startX = 0;
-        int stopX = stripeDegree / -1;
-        canvas.drawColor(background);
+        int stopX = button.getStripeAngle() / -1;
+        canvas.drawColor(button.getBackground());
         do {
-            paint.setColor(mainStripe);
-            paint.setAlpha(stripeAlpha);
+            paint.setColor(button.getMainStripeColor());
+            paint.setAlpha(button.getMainStripeAlpha());
             canvas.drawLine(startX, startY, stopX, stopY, paint);
             startX += stripeWidth + 1;
             stopX += stripeWidth + 1;
 
-            paint.setColor(secondaryStripe);
-            paint.setAlpha(stripeAlpha);
+            paint.setColor(button.getSubStripeColor());
+            paint.setAlpha(button.getSubStripeAlpha());
             canvas.drawLine(startX, startY, stopX, stopY, paint);
             startX += stripeWidth + 1;
             stopX += stripeWidth + 1;
-        } while (startX < getWidth() + stripeDegree);
+        } while (startX < getWidth() + button.getStripeAngle());
     }
 
     private void startAnimation() {
         if (btnAnimator == null && running == State.STOPPED) {
             btnAnimator = ValueAnimator.ofInt(0, 1);
             btnAnimator.setRepeatCount(ValueAnimator.INFINITE);
-            btnAnimator.setDuration(duration);
+            btnAnimator.setDuration(button.getDuration());
             btnAnimator.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationRepeat(Animator animation) {
-                    shiftColor(mainStripe, secondaryStripe);
+                    shiftColor(button.getMainStripeColor(), button.getSubStripeColor());
                     postInvalidate();
                 }
             });
@@ -107,9 +109,9 @@ public class StripedProgressButton extends AppCompatButton implements Animatable
         }
     }
 
-    private void shiftColor(int mainColor, int secColor) {
-        mainStripe = secColor;
-        secondaryStripe = mainColor;
+    private void shiftColor(int mainColor, int subColor) {
+        button.setMainStripeColor(subColor);
+        button.setSubStripeColor(mainColor);
     }
 
     @Override
