@@ -5,7 +5,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Animatable;
 import android.support.v7.widget.AppCompatButton;
@@ -28,9 +27,9 @@ public class StripedProgressButton extends AppCompatButton implements Animatable
     private float stopY;
     private float density;
 
-    private int background = Constants.colorBackground;
-    private int mainStripe = Constants.colorMainStripe;
-    private int secondaryStripe = Constants.colorSecondaryStripe;
+    private int background = Constants.DEF_BACKGROUND;
+    private int mainStripe = Constants.DEF_MAIN_STRIPE;
+    private int secondaryStripe = Constants.DEF_SEC_STRIPE;
 
     private Paint paint;
     private ValueAnimator btnAnimator;
@@ -98,23 +97,19 @@ public class StripedProgressButton extends AppCompatButton implements Animatable
             btnAnimator.setRepeatCount(ValueAnimator.INFINITE);
             btnAnimator.setDuration(duration);
             btnAnimator.addListener(new AnimatorListenerAdapter() {
-                boolean changeStripeColor = true;
                 @Override
                 public void onAnimationRepeat(Animator animation) {
-                    if (changeStripeColor) {
-                        changeStripeColor = false;
-                        mainStripe = Constants.colorSecondaryStripe;
-                        secondaryStripe = Constants.colorMainStripe;
-                    } else {
-                        changeStripeColor = true;
-                        mainStripe = Constants.colorMainStripe;
-                        secondaryStripe = Constants.colorSecondaryStripe;
-                    }
+                    shiftColor(mainStripe, secondaryStripe);
                     postInvalidate();
                 }
             });
             start();
         }
+    }
+
+    private void shiftColor(int mainColor, int secColor) {
+        mainStripe = secColor;
+        secondaryStripe = mainColor;
     }
 
     @Override

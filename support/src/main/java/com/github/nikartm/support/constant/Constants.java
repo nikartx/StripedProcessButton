@@ -8,7 +8,7 @@ import android.graphics.Color;
  */
 public class Constants {
 
-    public static final int colorBackground = Color.parseColor("#4CAF50");
-    public static final int colorMainStripe = Color.parseColor("#4CAF50");
-    public static final int colorSecondaryStripe = Color.parseColor("#CFD8DC");
+    public static final int DEF_BACKGROUND = Color.parseColor("#4CAF50");
+    public static final int DEF_MAIN_STRIPE = Color.parseColor("#4CAF50");
+    public static final int DEF_SEC_STRIPE = Color.parseColor("#CFD8DC");
 }
