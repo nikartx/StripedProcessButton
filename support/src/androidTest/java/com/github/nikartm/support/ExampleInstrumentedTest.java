@@ -1,4 +1,4 @@
-package com.github.nikartm.library;
+package com.github.nikartm.support;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

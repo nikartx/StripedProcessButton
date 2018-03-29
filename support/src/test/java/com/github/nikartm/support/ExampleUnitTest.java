@@ -1,4 +1,4 @@
-package com.github.nikartm.library;
+package com.github.nikartm.support;
 
 import org.junit.Test;
 

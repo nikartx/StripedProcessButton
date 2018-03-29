@@ -1,4 +1,4 @@
-package com.github.nikartm.library;
+package com.github.nikartm.support;
 
 import android.animation.ValueAnimator;
 import android.content.Context;

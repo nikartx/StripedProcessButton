@@ -4,9 +4,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 
+import com.github.nikartm.support.StripedProgressButton;
+
+
 public class MainActivity extends AppCompatActivity {
 
-    private Button btnStart;
+    private StripedProgressButton btnStart;
     private Button btnStop;
 
     @Override
