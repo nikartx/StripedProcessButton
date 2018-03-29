@@ -1,7 +1,9 @@
 package com.github.nikartm.library;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Animatable;
 import android.support.v7.widget.AppCompatButton;
@@ -13,10 +15,22 @@ import android.util.AttributeSet;
  */
 public class StripedProgressButton extends AppCompatButton implements Animatable {
 
-    private Paint paint;
     private float stripeWidth = 7f;
     private int stripeAlpha = 0x90;
+    private int stripeDegree = 40;
+    private long duration = 150L;
+    private float stripeEdge = 5f;
+    private float startY;
+    private float stopY;
     private float density;
+
+    private int colorBackground = Color.parseColor("#4CAF50");
+    private int colorMainStripe = Color.parseColor("#4CAF50");
+    private int colorSecondaryStripe = Color.parseColor("#CFD8DC");
+
+    private Paint paint;
+    private ValueAnimator btnAnimator;
+    private State running = State.STOPPED;
 
     public StripedProgressButton(Context context) {
         super(context);
@@ -43,12 +57,34 @@ public class StripedProgressButton extends AppCompatButton implements Animatable
 
     @Override
     protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
         if (paint == null) {
             paint = new Paint();
             paint.setAntiAlias(true);
             paint.setStrokeWidth(stripeWidth);
+            startY = stripeEdge / -1;
+            stopY = getHeight() + stripeEdge;
         }
+        drawStripes(canvas);
+        super.onDraw(canvas);
+    }
+
+    private void drawStripes(Canvas canvas) {
+        int startX = 0;
+        int stopX = stripeDegree / -1;
+        canvas.drawColor(colorBackground);
+        do {
+            paint.setColor(colorMainStripe);
+            paint.setAlpha(stripeAlpha);
+            canvas.drawLine(startX, startY, stopX, stopY, paint);
+            startX += stripeWidth + 1;
+            stopX += stripeWidth + 1;
+
+            paint.setColor(colorSecondaryStripe);
+            paint.setAlpha(stripeAlpha);
+            canvas.drawLine(startX, startY, stopX, stopY, paint);
+            startX += stripeWidth + 1;
+            stopX += stripeWidth + 1;
+        } while (startX < getWidth() + stripeDegree);
     }
 
     @Override
