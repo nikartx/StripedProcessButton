@@ -12,7 +12,6 @@ import android.util.AttributeSet;
  */
 public class StripedProgressButton extends AppCompatButton implements Animatable {
 
-    private AttributeController attrController;
     private AnimatedStripedDrawable stripedDrawable;
 
     public StripedProgressButton(Context context) {
@@ -31,7 +30,7 @@ public class StripedProgressButton extends AppCompatButton implements Animatable
     }
 
     private void initAttrs(AttributeSet attrs) {
-        attrController = new AttributeController(getContext(), attrs);
+        AttributeController attrController = new AttributeController(getContext(), attrs);
         stripedDrawable = attrController.getStripedDrawable();
     }
 
@@ -61,4 +60,7 @@ public class StripedProgressButton extends AppCompatButton implements Animatable
         return stripedDrawable.isRunning();
     }
 
+    public AnimatedStripedDrawable adjustButton() {
+        return stripedDrawable;
+    }
 }

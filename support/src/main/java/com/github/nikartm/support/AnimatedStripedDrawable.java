@@ -52,40 +52,6 @@ public class AnimatedStripedDrawable extends Drawable implements Animatable {
         this.context = context;
     }
 
-    public AnimatedStripedDrawable(Context context,
-                                   int colorBack,
-                                   int colorMain,
-                                   int colorSub,
-                                   float alpha) {
-        this.context = context;
-        this.colorBack = colorBack;
-        this.colorMain = colorMain;
-        this.colorSub = colorSub;
-        this.alpha = alpha;
-    }
-
-    public AnimatedStripedDrawable(Context context,
-                                   int colorBack,
-                                   int colorMain,
-                                   int colorSub,
-                                   float alpha,
-                                   int stripeWidth,
-                                   int stripeTilt,
-                                   float cornerRadius,
-                                   int duration,
-                                   boolean stripeRevert) {
-        this.context = context;
-        this.colorBack = colorBack;
-        this.colorMain = colorMain;
-        this.colorSub = colorSub;
-        this.alpha = alpha;
-        this.stripeWidth = stripeWidth;
-        this.tilt = stripeTilt;
-        this.cornerRadius = cornerRadius;
-        this.duration = duration;
-        this.stripeRevert = stripeRevert;
-    }
-
     @Override
     protected void onBoundsChange(Rect bounds) {
         super.onBoundsChange(bounds);
@@ -93,14 +59,10 @@ public class AnimatedStripedDrawable extends Drawable implements Animatable {
         viewHeight = bounds.height();
         viewWidth = bounds.width();
         adjustStripes();
-        defineTilt();
     }
 
     private void adjustStripes() {
         stripeWidth = stripeWidth * density;
-    }
-
-    private void defineTilt() {
         if (!stripeRevert) {
             tiltLeft = tilt / density;
             tiltRight = 0;
