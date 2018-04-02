@@ -83,14 +83,14 @@ public class StripedProgressButton extends AppCompatButton implements Animatable
             paint.setStrokeWidth(stripeWidth);
             startY = stripeEdge / -1;
             stopY = getHeight() + stripeEdge;
-            mainStripeAlpha = Util.computeAlpha(button.getMainStripeAlpha());
-            subStripeAlpha = Util.computeAlpha(button.getSubStripeAlpha());
+//            mainStripeAlpha = Util.computeAlpha(button.getMainStripeAlpha());
+//            subStripeAlpha = Util.computeAlpha(button.getSubStripeAlpha());
         }
     }
 
     private void drawStripes(Canvas canvas) {
         int startX = 0;
-        int stopX = button.getStripeDegree() / -1;
+        int stopX = 0;
         canvas.drawColor(button.getBackground());
         do {
             paint.setColor(button.getMainStripeColor());
@@ -104,7 +104,7 @@ public class StripedProgressButton extends AppCompatButton implements Animatable
             canvas.drawLine(startX, startY, stopX, stopY, paint);
             startX += stripeWidth + 1;
             stopX += stripeWidth + 1;
-        } while (startX < getWidth() + button.getStripeDegree());
+        } while (startX < getWidth() + button.getStripeTilt());
     }
 
     private void startAnimation() {
@@ -173,35 +173,6 @@ public class StripedProgressButton extends AppCompatButton implements Animatable
         return this;
     }
 
-    public float getMainStripeAlpha() {
-        return button.getMainStripeAlpha();
-    }
-
-    public StripedProgressButton setMainStripeAlpha(float mainStripeAlpha) {
-        button.setMainStripeAlpha(mainStripeAlpha);
-        invalidate();
-        return this;
-    }
-
-    public float getSubStripeAlpha() {
-        return button.getSubStripeAlpha();
-    }
-
-    public StripedProgressButton setSubStripeAlpha(float subStripeAlpha) {
-        button.setSubStripeAlpha(subStripeAlpha);
-        invalidate();
-        return this;
-    }
-
-    public int getStripeDegree() {
-        return button.getStripeDegree();
-    }
-
-    public StripedProgressButton setStripeDegree(int stripeDegree) {
-        button.setStripeDegree(stripeDegree);
-        invalidate();
-        return this;
-    }
 
     public long getDuration() {
         return button.getDuration();

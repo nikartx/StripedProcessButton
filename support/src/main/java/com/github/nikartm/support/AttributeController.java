@@ -25,24 +25,26 @@ public class AttributeController {
         try {
             float stripeWidth = typedArray.getDimension(R.styleable.StripedProgressButton_spb_stripeWidth, Constants.STRIPE_WIDTH);
             float stripeAlpha = typedArray.getFloat(R.styleable.StripedProgressButton_spb_stripeAlpha, Constants.STRIPE_ALPHA);
-            float mainStripeAlpha = typedArray.getFloat(R.styleable.StripedProgressButton_spb_mainStripeAlpha, stripeAlpha);
-            float subStripeAlpha = typedArray.getFloat(R.styleable.StripedProgressButton_spb_subStripeAlpha, stripeAlpha);
-            int stripeDegree = typedArray.getInt(R.styleable.StripedProgressButton_spb_degree, Constants.STRIPE_DEGREE);
+            int stripeTilt = typedArray.getInt(R.styleable.StripedProgressButton_spb_stripeTilt, Constants.STRIPE_TILT);
             int duration = typedArray.getInt(R.styleable.StripedProgressButton_spb_duration, Constants.DURATION);
             int background = typedArray.getColor(R.styleable.StripedProgressButton_spb_background, Constants.DEF_BACKGROUND);
             int mainStripeColor = typedArray.getColor(R.styleable.StripedProgressButton_spb_mainStripColor, Constants.DEF_MAIN_STRIPE);
             int subStripeColor = typedArray.getColor(R.styleable.StripedProgressButton_spb_subStripeColor, Constants.DEF_SUB_STRIPE);
+            float cornerRadius = typedArray.getFloat(R.styleable.StripedProgressButton_spb_cornerRadius, Constants.CORNER);
+            boolean stripeRevert = typedArray.getBoolean(R.styleable.StripedProgressButton_spb_stripeRevert, Constants.REVERT);
+            boolean showStripes = typedArray.getBoolean(R.styleable.StripedProgressButton_spb_showStripes, Constants.SHOW_STRIPES);
             boolean active = typedArray.getBoolean(R.styleable.StripedProgressButton_spb_active, Constants.ACTIVE);
 
             button.setStripeWidth(stripeWidth)
                     .setStripeAlpha(stripeAlpha)
-                    .setMainStripeAlpha(mainStripeAlpha)
-                    .setSubStripeAlpha(subStripeAlpha)
-                    .setStripeDegree(stripeDegree)
+                    .setStripeTilt(stripeTilt)
                     .setDuration(duration)
                     .setBackground(background)
                     .setMainStripeColor(mainStripeColor)
                     .setSubStripeColor(subStripeColor)
+                    .setCornerRadius(cornerRadius)
+                    .setStripeRevert(stripeRevert)
+                    .setShowStripes(showStripes)
                     .setActive(active);
         } finally {
             typedArray.recycle();

@@ -32,15 +32,15 @@ public class AnimatedStripedDrawable extends Drawable implements Animatable {
     private float alpha = Constants.STRIPE_ALPHA;
     private float cornerRadius = Constants.CORNER;
     private int duration = Constants.DURATION;
-    private float tilt = Constants.TILT;
+    private float tilt = Constants.STRIPE_TILT;
+    private boolean stripeRevert = Constants.REVERT;
+    private boolean showStripes = Constants.SHOW_STRIPES;
 
     private float density;
     private int viewHeight;
     private int viewWidth;
     private float tiltLeft = 0f;
     private float tiltRight = 0f;
-    private boolean stripeRevert = false;
-    private boolean showStripes = true;
     private boolean running = false;
 
     private Context context;
@@ -212,6 +212,7 @@ public class AnimatedStripedDrawable extends Drawable implements Animatable {
 
     public AnimatedStripedDrawable setStripeWidth(float stripeWidth) {
         this.stripeWidth = stripeWidth;
+        invalidateSelf();
         return this;
     }
 
@@ -221,6 +222,7 @@ public class AnimatedStripedDrawable extends Drawable implements Animatable {
 
     public AnimatedStripedDrawable setColorBack(int colorBack) {
         this.colorBack = colorBack;
+        invalidateSelf();
         return this;
     }
 
@@ -230,6 +232,7 @@ public class AnimatedStripedDrawable extends Drawable implements Animatable {
 
     public AnimatedStripedDrawable setColorMain(int colorMain) {
         this.colorMain = colorMain;
+        invalidateSelf();
         return this;
     }
 
@@ -239,6 +242,7 @@ public class AnimatedStripedDrawable extends Drawable implements Animatable {
 
     public AnimatedStripedDrawable setColorSub(int colorSub) {
         this.colorSub = colorSub;
+        invalidateSelf();
         return this;
     }
 
@@ -248,6 +252,7 @@ public class AnimatedStripedDrawable extends Drawable implements Animatable {
 
     public AnimatedStripedDrawable setStripeAlpha(float alpha) {
         this.alpha = alpha;
+        invalidateSelf();
         return this;
     }
 
@@ -257,6 +262,7 @@ public class AnimatedStripedDrawable extends Drawable implements Animatable {
 
     public AnimatedStripedDrawable setCornerRadius(float cornerRadius) {
         this.cornerRadius = cornerRadius;
+        invalidateSelf();
         return this;
     }
 
@@ -266,6 +272,7 @@ public class AnimatedStripedDrawable extends Drawable implements Animatable {
 
     public AnimatedStripedDrawable setDuration(int duration) {
         this.duration = duration;
+        invalidateSelf();
         return this;
     }
 
@@ -275,6 +282,7 @@ public class AnimatedStripedDrawable extends Drawable implements Animatable {
 
     public AnimatedStripedDrawable setTilt(float tilt) {
         this.tilt = tilt;
+        invalidateSelf();
         return this;
     }
 
@@ -284,6 +292,7 @@ public class AnimatedStripedDrawable extends Drawable implements Animatable {
 
     public AnimatedStripedDrawable setStripeRevert(boolean stripeRevert) {
         this.stripeRevert = stripeRevert;
+        invalidateSelf();
         return this;
     }
 
@@ -293,6 +302,7 @@ public class AnimatedStripedDrawable extends Drawable implements Animatable {
 
     public AnimatedStripedDrawable setShowStripes(boolean showStripes) {
         this.showStripes = showStripes;
+        invalidateSelf();
         return this;
     }
 }

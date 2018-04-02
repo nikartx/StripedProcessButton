@@ -11,11 +11,10 @@ public class Constants {
     public static final float STRIPE_WIDTH = 13f;
     public static final float STRIPE_ALPHA = 0.3f;
     public static final int CORNER = 5;
-    public static final float TILT = 39f;
-    public static final float MAIN_STRIPE_ALPHA = STRIPE_ALPHA;
-    public static final float SUB_STRIPE_ALPHA = STRIPE_ALPHA;
-    public static final int STRIPE_DEGREE = 40;
+    public static final int STRIPE_TILT = 40;
     public static final int DURATION = 250;
+    public static final boolean REVERT = false;
+    public static final boolean SHOW_STRIPES = true;
     public static final boolean ACTIVE = true;
 
     public static final int DEF_BACKGROUND = Color.parseColor("#4CAF50");

@@ -8,17 +8,17 @@ public class StrippedButton {
 
     private float stripeWidth;
     private float stripeAlpha;
-    private float mainStripeAlpha;
-    private float subStripeAlpha;
-    private int stripeDegree;
+    private int stripeTilt;
     private long duration;
     private int background;
     private int mainStripeColor;
     private int subStripeColor;
+    private float cornerRadius;
+    private boolean stripeRevert;
+    private boolean showStripes;
     private boolean active;
 
-    public StrippedButton() {
-    }
+    public StrippedButton() {}
 
     public float getStripeWidth() {
         return stripeWidth;
@@ -38,30 +38,12 @@ public class StrippedButton {
         return this;
     }
 
-    public float getMainStripeAlpha() {
-        return mainStripeAlpha;
+    public int getStripeTilt() {
+        return stripeTilt;
     }
 
-    public StrippedButton setMainStripeAlpha(float mainStripeAlpha) {
-        this.mainStripeAlpha = mainStripeAlpha;
-        return this;
-    }
-
-    public float getSubStripeAlpha() {
-        return subStripeAlpha;
-    }
-
-    public StrippedButton setSubStripeAlpha(float subStripeAlpha) {
-        this.subStripeAlpha = subStripeAlpha;
-        return this;
-    }
-
-    public int getStripeDegree() {
-        return stripeDegree;
-    }
-
-    public StrippedButton setStripeDegree(int stripeDegree) {
-        this.stripeDegree = stripeDegree;
+    public StrippedButton setStripeTilt(int stripeTilt) {
+        this.stripeTilt = stripeTilt;
         return this;
     }
 
@@ -98,6 +80,33 @@ public class StrippedButton {
 
     public StrippedButton setSubStripeColor(int subStripeColor) {
         this.subStripeColor = subStripeColor;
+        return this;
+    }
+
+    public float getCornerRadius() {
+        return cornerRadius;
+    }
+
+    public StrippedButton setCornerRadius(float cornerRadius) {
+        this.cornerRadius = cornerRadius;
+        return this;
+    }
+
+    public boolean isStripeRevert() {
+        return stripeRevert;
+    }
+
+    public StrippedButton setStripeRevert(boolean stripeRevert) {
+        this.stripeRevert = stripeRevert;
+        return this;
+    }
+
+    public boolean isShowStripes() {
+        return showStripes;
+    }
+
+    public StrippedButton setShowStripes(boolean showStripes) {
+        this.showStripes = showStripes;
         return this;
     }
 
