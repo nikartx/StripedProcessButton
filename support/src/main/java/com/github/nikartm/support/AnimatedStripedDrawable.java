@@ -25,16 +25,17 @@ import com.github.nikartm.support.constant.Constants;
  */
 public class AnimatedStripedDrawable extends Drawable implements Animatable {
 
-    private float stripeWidth = Constants.STRIPE_WIDTH;
-    private int colorBack = Constants.DEF_BACKGROUND;
-    private int colorMain = Constants.DEF_MAIN_STRIPE;
-    private int colorSub = Constants.DEF_SUB_STRIPE;
-    private float alpha = Constants.STRIPE_ALPHA;
-    private float cornerRadius = Constants.CORNER;
-    private int duration = Constants.DURATION;
-    private float tilt = Constants.STRIPE_TILT;
-    private boolean stripeRevert = Constants.REVERT;
-    private boolean showStripes = Constants.SHOW_STRIPES;
+    private float stripeWidth;
+    private int colorBack;
+    private int colorMain;
+    private int colorSub;
+    private float alpha;
+    private float cornerRadius;
+    private int duration;
+    private float tilt;
+    private boolean stripeRevert;
+    private boolean showStripes;
+    private boolean stripeGradient;
 
     private float density;
     private int viewHeight;
@@ -45,6 +46,7 @@ public class AnimatedStripedDrawable extends Drawable implements Animatable {
 
     private Context context;
     private ValueAnimator animator;
+    private Shader stripesShader;
 
     public AnimatedStripedDrawable(Context context) {
         this.context = context;
@@ -90,11 +92,11 @@ public class AnimatedStripedDrawable extends Drawable implements Animatable {
         density = context.getResources().getDisplayMetrics().density;
         viewHeight = bounds.height();
         viewWidth = bounds.width();
-        stripeWidthToDp();
+        adjustStripes();
         defineTilt();
     }
 
-    private void stripeWidthToDp() {
+    private void adjustStripes() {
         stripeWidth = stripeWidth * density;
     }
 
@@ -139,25 +141,38 @@ public class AnimatedStripedDrawable extends Drawable implements Animatable {
 
     private void drawStripes(Canvas canvas) {
         final Paint paintBack = new Paint(Paint.ANTI_ALIAS_FLAG);
-        final Paint paintCorner = new Paint(Paint.ANTI_ALIAS_FLAG);
+        final Paint paintStripes = new Paint(Paint.ANTI_ALIAS_FLAG);
         final Rect rect = new Rect(0, 0, viewWidth, viewHeight);
         final RectF rectF = new RectF(rect);
+        final int stripesAlpha = Util.computeAlpha(alpha);
+
+        if (stripeGradient) {
+            stripesShader = createGradientShader();
+        } else {
+            stripesShader = createShader();
+        }
 
         paintBack.setColor(colorBack);
         canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, paintBack);
 
         if (showStripes) {
-            Shader shader = createShader();
-            paintCorner.setShader(shader);
-            paintCorner.setAlpha(Util.computeAlpha(alpha));
-            canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, paintCorner);
+            paintStripes.setAlpha(stripesAlpha);
+            paintStripes.setShader(stripesShader);
+            canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, paintStripes);
         }
     }
 
-    private Shader createShader() {
+    @NonNull
+    private LinearGradient createShader() {
         return new LinearGradient(stripeWidth, tiltLeft, 0, tiltRight,
-                new int[] { colorMain, colorSub },
-                new float[] { 0.5f, 0.5f }, Shader.TileMode.REPEAT);
+                new int[] { colorMain, colorSub }, new float[] { .5f, .5f },
+                Shader.TileMode.REPEAT);
+    }
+
+    @NonNull
+    private LinearGradient createGradientShader() {
+        return new LinearGradient(stripeWidth, tiltLeft, 0, tiltRight,
+                colorMain, colorSub, Shader.TileMode.REPEAT);
     }
 
     private void startAnimation() {
@@ -188,6 +203,7 @@ public class AnimatedStripedDrawable extends Drawable implements Animatable {
         }
         running = true;
         animator.start();
+        setShowStripes(true);
         invalidateSelf();
     }
 
@@ -198,6 +214,7 @@ public class AnimatedStripedDrawable extends Drawable implements Animatable {
         }
         running = false;
         animator.cancel();
+        setShowStripes(false);
         invalidateSelf();
     }
 
@@ -302,6 +319,16 @@ public class AnimatedStripedDrawable extends Drawable implements Animatable {
 
     public AnimatedStripedDrawable setShowStripes(boolean showStripes) {
         this.showStripes = showStripes;
+        invalidateSelf();
+        return this;
+    }
+
+    public boolean isStripeGradient() {
+        return stripeGradient;
+    }
+
+    public AnimatedStripedDrawable setStripeGradient(boolean stripeGradient) {
+        this.stripeGradient = stripeGradient;
         invalidateSelf();
         return this;
     }

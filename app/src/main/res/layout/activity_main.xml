@@ -24,10 +24,9 @@
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/btn_rounded"
         android:text="Example"
         android:textColor="#ffffff"
-        app:spb_active="true"
+        app:spb_cornerRadius="50"
         app:spb_duration="250" />
 
     <Button

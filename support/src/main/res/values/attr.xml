@@ -12,7 +12,7 @@
         <attr name="spb_cornerRadius" format="float" />
         <attr name="spb_stripeRevert" format="boolean" />
         <attr name="spb_showStripes" format="boolean" />
-        <attr name="spb_active" format="boolean" />
+        <attr name="spb_stripeGradient" format="boolean" />
 
     </declare-styleable>
 </resources>

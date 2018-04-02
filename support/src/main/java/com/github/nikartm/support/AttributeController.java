@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 
 import com.github.nikartm.support.constant.Constants;
-import com.github.nikartm.support.model.StrippedButton;
 
 /**
  * @author Ivan V on 29.03.2018.
@@ -13,10 +12,10 @@ import com.github.nikartm.support.model.StrippedButton;
  */
 public class AttributeController {
 
-    private StrippedButton button;
+    private AnimatedStripedDrawable drawable;
 
     public AttributeController(Context context, AttributeSet attrs) {
-        button = new StrippedButton();
+        drawable = new AnimatedStripedDrawable(context);
         initAttrs(context, attrs);
     }
 
@@ -33,26 +32,26 @@ public class AttributeController {
             float cornerRadius = typedArray.getFloat(R.styleable.StripedProgressButton_spb_cornerRadius, Constants.CORNER);
             boolean stripeRevert = typedArray.getBoolean(R.styleable.StripedProgressButton_spb_stripeRevert, Constants.REVERT);
             boolean showStripes = typedArray.getBoolean(R.styleable.StripedProgressButton_spb_showStripes, Constants.SHOW_STRIPES);
-            boolean active = typedArray.getBoolean(R.styleable.StripedProgressButton_spb_active, Constants.ACTIVE);
+            boolean stripeGradient = typedArray.getBoolean(R.styleable.StripedProgressButton_spb_stripeGradient, Constants.GRADIENT);
 
-            button.setStripeWidth(stripeWidth)
+            drawable.setStripeWidth(stripeWidth)
                     .setStripeAlpha(stripeAlpha)
-                    .setStripeTilt(stripeTilt)
+                    .setTilt(stripeTilt)
                     .setDuration(duration)
-                    .setBackground(background)
-                    .setMainStripeColor(mainStripeColor)
-                    .setSubStripeColor(subStripeColor)
+                    .setColorBack(background)
+                    .setColorMain(mainStripeColor)
+                    .setColorSub(subStripeColor)
                     .setCornerRadius(cornerRadius)
                     .setStripeRevert(stripeRevert)
                     .setShowStripes(showStripes)
-                    .setActive(active);
+                    .setStripeGradient(stripeGradient);
         } finally {
             typedArray.recycle();
         }
     }
 
-    public StrippedButton getButton() {
-        return button;
+    public AnimatedStripedDrawable getStripedDrawable() {
+        return drawable;
     }
 
 }
