@@ -135,6 +135,7 @@ public class StripedProgressButton extends AppCompatButton implements Animatable
         }
         running = State.PROGRESS;
         btnAnimator.start();
+        setActive(true);
     }
 
     @Override
@@ -144,6 +145,7 @@ public class StripedProgressButton extends AppCompatButton implements Animatable
         }
         running = State.STOPPED;
         btnAnimator.cancel();
+        setActive(false);
     }
 
     @Override
