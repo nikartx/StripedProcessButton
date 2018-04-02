@@ -40,6 +40,7 @@ public class AnimatedStripedDrawable extends Drawable implements Animatable {
     private float tiltLeft = 0f;
     private float tiltRight = 0f;
     private boolean stripeRevert = false;
+    private boolean showStripes = true;
     private boolean running = false;
 
     private Context context;
@@ -142,12 +143,15 @@ public class AnimatedStripedDrawable extends Drawable implements Animatable {
         final Rect rect = new Rect(0, 0, viewWidth, viewHeight);
         final RectF rectF = new RectF(rect);
 
-        Shader shader = createShader();
         paintBack.setColor(colorBack);
         canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, paintBack);
-        paintCorner.setShader(shader);
-        paintCorner.setAlpha(Util.computeAlpha(alpha));
-        canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, paintCorner);
+
+        if (showStripes) {
+            Shader shader = createShader();
+            paintCorner.setShader(shader);
+            paintCorner.setAlpha(Util.computeAlpha(alpha));
+            canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, paintCorner);
+        }
     }
 
     private Shader createShader() {
@@ -200,5 +204,95 @@ public class AnimatedStripedDrawable extends Drawable implements Animatable {
     @Override
     public boolean isRunning() {
         return running;
+    }
+
+    public float getStripeWidth() {
+        return stripeWidth;
+    }
+
+    public AnimatedStripedDrawable setStripeWidth(float stripeWidth) {
+        this.stripeWidth = stripeWidth;
+        return this;
+    }
+
+    public int getColorBack() {
+        return colorBack;
+    }
+
+    public AnimatedStripedDrawable setColorBack(int colorBack) {
+        this.colorBack = colorBack;
+        return this;
+    }
+
+    public int getColorMain() {
+        return colorMain;
+    }
+
+    public AnimatedStripedDrawable setColorMain(int colorMain) {
+        this.colorMain = colorMain;
+        return this;
+    }
+
+    public int getColorSub() {
+        return colorSub;
+    }
+
+    public AnimatedStripedDrawable setColorSub(int colorSub) {
+        this.colorSub = colorSub;
+        return this;
+    }
+
+    public float getStripeAlpha() {
+        return alpha;
+    }
+
+    public AnimatedStripedDrawable setStripeAlpha(float alpha) {
+        this.alpha = alpha;
+        return this;
+    }
+
+    public float getCornerRadius() {
+        return cornerRadius;
+    }
+
+    public AnimatedStripedDrawable setCornerRadius(float cornerRadius) {
+        this.cornerRadius = cornerRadius;
+        return this;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public AnimatedStripedDrawable setDuration(int duration) {
+        this.duration = duration;
+        return this;
+    }
+
+    public float getTilt() {
+        return tilt;
+    }
+
+    public AnimatedStripedDrawable setTilt(float tilt) {
+        this.tilt = tilt;
+        return this;
+    }
+
+    public boolean isStripeRevert() {
+        return stripeRevert;
+    }
+
+    public AnimatedStripedDrawable setStripeRevert(boolean stripeRevert) {
+        this.stripeRevert = stripeRevert;
+        return this;
+    }
+
+    public boolean isShowStripes() {
+        return showStripes;
+    }
+
+    public AnimatedStripedDrawable setShowStripes(boolean showStripes) {
+        this.showStripes = showStripes;
+        return this;
     }
 }

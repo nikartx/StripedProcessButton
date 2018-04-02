@@ -9,7 +9,7 @@ import android.graphics.Color;
 public class Constants {
 
     public static final float STRIPE_WIDTH = 13f;
-    public static final float STRIPE_ALPHA = 0.6f;
+    public static final float STRIPE_ALPHA = 0.3f;
     public static final int CORNER = 5;
     public static final float TILT = 39f;
     public static final float MAIN_STRIPE_ALPHA = STRIPE_ALPHA;

@@ -6,15 +6,22 @@ package com.github.nikartm.support;
  */
 class Util {
 
+    private static final int MAX_ALPHA = 255;
+    private static final int MIN_ALPHA = 0;
+
     public static int computeAlpha(float value) {
         int result;
-        if (value * 100 > 100) {
-            result = 100;
-        } else if (Float.floatToIntBits(value) < 0) {
-            result = 0;
+        if (valueAlpha(value) >= MAX_ALPHA) {
+            result = MAX_ALPHA;
+        } else if (Float.floatToIntBits(value) < MIN_ALPHA) {
+            result = MIN_ALPHA;
         } else {
-            result = (int) (value * 100);
+            result = (int) valueAlpha(value);
         }
         return result;
+    }
+
+    private static float valueAlpha(float value) {
+        return MAX_ALPHA * (value * 100f) / 100f;
     }
 }
