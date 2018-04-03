@@ -25,7 +25,7 @@ public class AttributeController {
             float stripeWidth = typedArray.getDimension(R.styleable.StripedProgressButton_spb_stripeWidth, Constants.STRIPE_WIDTH);
             float stripeAlpha = typedArray.getFloat(R.styleable.StripedProgressButton_spb_stripeAlpha, Constants.STRIPE_ALPHA);
             int stripeTilt = typedArray.getInt(R.styleable.StripedProgressButton_spb_stripeTilt, Constants.STRIPE_TILT);
-            int duration = typedArray.getInt(R.styleable.StripedProgressButton_spb_duration, Constants.DURATION);
+            int stripeDuration = typedArray.getInt(R.styleable.StripedProgressButton_spb_stripeDuration, Constants.DURATION);
             int background = typedArray.getColor(R.styleable.StripedProgressButton_spb_background, Constants.DEF_BACKGROUND);
             int mainStripeColor = typedArray.getColor(R.styleable.StripedProgressButton_spb_mainStripColor, Constants.DEF_MAIN_STRIPE);
             int subStripeColor = typedArray.getColor(R.styleable.StripedProgressButton_spb_subStripeColor, Constants.DEF_SUB_STRIPE);
@@ -37,7 +37,7 @@ public class AttributeController {
             drawable.setStripeWidth(stripeWidth)
                     .setStripeAlpha(stripeAlpha)
                     .setTilt(stripeTilt)
-                    .setDuration(duration)
+                    .setStripeDuration(stripeDuration)
                     .setColorBack(background)
                     .setColorMain(mainStripeColor)
                     .setColorSub(subStripeColor)

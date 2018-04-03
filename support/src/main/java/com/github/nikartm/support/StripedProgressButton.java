@@ -35,24 +35,30 @@ public class StripedProgressButton extends AppCompatButton implements Animatable
     }
 
     @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-    }
-
-    @Override
     protected void onDraw(Canvas canvas) {
         setBackground(stripedDrawable);
+        setEnabled(!isRunning());
         super.onDraw(canvas);
     }
 
     @Override
     public void start() {
+        if (isRunning()) {
+            return;
+        }
+        setEnabled(isRunning());
         stripedDrawable.start();
+        Util.Animation.animateView(this, true, 800);
     }
 
     @Override
     public void stop() {
+        if (!isRunning()) {
+            return;
+        }
+        setEnabled(isRunning());
         stripedDrawable.stop();
+        Util.Animation.animateView(this, false, 300);
     }
 
     @Override

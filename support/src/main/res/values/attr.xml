@@ -5,7 +5,7 @@
         <attr name="spb_stripeWidth" format="dimension" />
         <attr name="spb_stripeAlpha" format="float" />
         <attr name="spb_stripeTilt" format="integer" />
-        <attr name="spb_duration" format="integer" />
+        <attr name="spb_stripeDuration" format="integer" />
         <attr name="spb_background" format="color" />
         <attr name="spb_mainStripColor" format="color" />
         <attr name="spb_subStripeColor" format="color" />

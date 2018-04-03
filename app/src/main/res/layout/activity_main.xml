@@ -25,9 +25,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Example"
+        android:clickable="true"
+        android:focusable="true"
         android:textColor="#ffffff"
-        app:spb_cornerRadius="50"
-        app:spb_duration="250" />
+        app:spb_cornerRadius="50" />
 
     <Button
         android:id="@+id/btn_stop"

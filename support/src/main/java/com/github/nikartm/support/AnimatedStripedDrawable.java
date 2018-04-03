@@ -12,18 +12,16 @@ import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
-import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.github.nikartm.support.constant.Constants;
 
 /**
  * @author Ivan V on 30.03.2018.
  * @version 1.0
  */
-public class AnimatedStripedDrawable extends Drawable implements Animatable {
+public class AnimatedStripedDrawable extends Drawable {
 
     private float stripeWidth;
     private int colorBack;
@@ -31,7 +29,7 @@ public class AnimatedStripedDrawable extends Drawable implements Animatable {
     private int colorSub;
     private float alpha;
     private float cornerRadius;
-    private int duration;
+    private int stripeDuration;
     private float tilt;
     private boolean stripeRevert;
     private boolean showStripes;
@@ -59,6 +57,7 @@ public class AnimatedStripedDrawable extends Drawable implements Animatable {
         viewHeight = bounds.height();
         viewWidth = bounds.width();
         adjustStripes();
+        initAnimator();
     }
 
     private void adjustStripes() {
@@ -69,6 +68,21 @@ public class AnimatedStripedDrawable extends Drawable implements Animatable {
         } else {
             tiltRight = tilt / density;
             tiltLeft = 0;
+        }
+    }
+
+    private void initAnimator() {
+        if (animator == null) {
+            animator = ValueAnimator.ofInt(0, 1);
+            animator.setRepeatCount(ValueAnimator.INFINITE);
+            animator.setDuration(stripeDuration);
+            animator.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationRepeat(Animator animation) {
+                    shiftColor(colorMain, colorSub);
+                    invalidateSelf();
+                }
+            });
         }
     }
 
@@ -96,8 +110,14 @@ public class AnimatedStripedDrawable extends Drawable implements Animatable {
     @Override
     public void draw(@NonNull Canvas canvas) {
         drawStripes(canvas);
-        if (!running) {
-            startAnimation();
+        startStripesAnimation();
+    }
+
+    private void startStripesAnimation() {
+        if (running) {
+            start();
+        } else {
+            setShowStripes(false);
         }
     }
 
@@ -137,29 +157,13 @@ public class AnimatedStripedDrawable extends Drawable implements Animatable {
                 colorMain, colorSub, Shader.TileMode.REPEAT);
     }
 
-    private void startAnimation() {
-        if (animator == null && !running) {
-            animator = ValueAnimator.ofInt(0, 1);
-            animator.setRepeatCount(ValueAnimator.INFINITE);
-            animator.setDuration(duration);
-            animator.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationRepeat(Animator animation) {
-                    shiftColor(colorMain, colorSub);
-                    invalidateSelf();
-                }
-            });
-            start();
-        }
-    }
-
     private void shiftColor(int mainColor, int subColor) {
         colorMain = subColor;
         colorSub = mainColor;
     }
 
-    @Override
-    public void start() {
+    // Start stripes animation
+    protected void start() {
         if (isRunning()) {
             return;
         }
@@ -169,8 +173,8 @@ public class AnimatedStripedDrawable extends Drawable implements Animatable {
         invalidateSelf();
     }
 
-    @Override
-    public void stop() {
+    // Stop stripes animation
+    protected void stop() {
         if (!isRunning()) {
             return;
         }
@@ -180,9 +184,9 @@ public class AnimatedStripedDrawable extends Drawable implements Animatable {
         invalidateSelf();
     }
 
-    @Override
-    public boolean isRunning() {
-        return running;
+    // Check if stripes animation running
+    protected boolean isRunning() {
+        return animator != null && animator.isStarted();
     }
 
     public float getStripeWidth() {
@@ -245,12 +249,12 @@ public class AnimatedStripedDrawable extends Drawable implements Animatable {
         return this;
     }
 
-    public int getDuration() {
-        return duration;
+    public int getStripeDuration() {
+        return stripeDuration;
     }
 
-    public AnimatedStripedDrawable setDuration(int duration) {
-        this.duration = duration;
+    public AnimatedStripedDrawable setStripeDuration(int stripeDuration) {
+        this.stripeDuration = stripeDuration;
         invalidateSelf();
         return this;
     }
