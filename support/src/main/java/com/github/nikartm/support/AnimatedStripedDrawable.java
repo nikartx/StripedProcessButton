@@ -16,8 +16,8 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-
 /**
+ * Animated striped drawable
  * @author Ivan V on 30.03.2018.
  * @version 1.0
  */

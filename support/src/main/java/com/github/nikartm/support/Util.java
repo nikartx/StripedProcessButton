@@ -29,6 +29,9 @@ class Util {
         return MAX_ALPHA * (value * 100f) / 100f;
     }
 
+    /**
+     * Animation for the striped process button
+     */
     static class Animation {
 
         public static void animateView(View view, boolean start, long duration) {
