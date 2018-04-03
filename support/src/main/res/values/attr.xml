@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="StripedProgressButton">
+    <declare-styleable name="StripedProcessButton">
 
         <attr name="spb_stripeWidth" format="dimension" />
         <attr name="spb_stripeAlpha" format="float" />
@@ -13,6 +13,7 @@
         <attr name="spb_stripeRevert" format="boolean" />
         <attr name="spb_showStripes" format="boolean" />
         <attr name="spb_stripeGradient" format="boolean" />
+        <attr name="spb_loadingText" format="string|reference" />
 
     </declare-styleable>
 </resources>

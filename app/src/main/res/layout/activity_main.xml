@@ -16,7 +16,7 @@
         android:text="Example of using progress button"
         android:textSize="16sp" />
 
-    <com.github.nikartm.support.StripedProgressButton
+    <com.github.nikartm.support.StripedProcessButton
         android:id="@+id/btn_start"
         android:layout_width="match_parent"
         android:layout_height="44dp"
@@ -24,7 +24,8 @@
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Example"
+        android:text="Start process"
+        app:spb_loadingText="Loading..."
         android:clickable="true"
         android:focusable="true"
         android:textColor="#ffffff"
@@ -36,6 +37,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:textSize="16dp"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:background="@drawable/btn_rounded"
+        android:foreground="@drawable/ripple"
         android:text="Stop"/>
 
 </android.support.v7.widget.LinearLayoutCompat>

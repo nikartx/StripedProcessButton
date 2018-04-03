@@ -1,4 +1,4 @@
-package com.github.nikartm.strippedprogressbutton;
+package com.github.nikartm.strippedprocessbutton;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

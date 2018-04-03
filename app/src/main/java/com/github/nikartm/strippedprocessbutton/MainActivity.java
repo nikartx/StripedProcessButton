@@ -1,25 +1,25 @@
-package com.github.nikartm.strippedprogressbutton;
+package com.github.nikartm.strippedprocessbutton;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
-import com.github.nikartm.support.StripedProgressButton;
+import com.github.nikartm.support.StripedProcessButton;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    private StripedProgressButton btnStart;
+    private StripedProcessButton stripedButton;
     private Button btnStop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        btnStart = findViewById(R.id.btn_start);
+        stripedButton = findViewById(R.id.btn_start);
         btnStop = findViewById(R.id.btn_stop);
 
-        btnStart.setOnClickListener(v -> btnStart.start());
-        btnStop.setOnClickListener(v -> btnStart.stop());
+        stripedButton.setOnClickListener(v -> stripedButton.start());
+        btnStop.setOnClickListener(v -> stripedButton.stop());
     }
 }
