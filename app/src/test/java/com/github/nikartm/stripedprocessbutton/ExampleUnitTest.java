@@ -1,4 +1,4 @@
-package com.github.nikartm.strippedprocessbutton;
+package com.github.nikartm.stripedprocessbutton;
 
 import org.junit.Test;
 

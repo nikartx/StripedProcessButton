@@ -29,7 +29,7 @@
         android:clickable="true"
         android:focusable="true"
         android:textColor="#ffffff"
-        app:spb_cornerRadius="50" />
+        app:spb_cornerRadius="10" />
 
     <Button
         android:id="@+id/btn_stop"

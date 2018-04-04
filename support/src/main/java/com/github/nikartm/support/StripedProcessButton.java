@@ -59,7 +59,7 @@ public class StripedProcessButton extends AppCompatButton implements Animatable 
 
     @Override
     public void start() {
-        if (isRunning()) {
+        if (isRunning() || !isAttachedToWindow()) {
             return;
         }
         setEnabled(isRunning());
@@ -69,7 +69,7 @@ public class StripedProcessButton extends AppCompatButton implements Animatable 
 
     @Override
     public void stop() {
-        if (!isRunning()) {
+        if (!isRunning() || !isAttachedToWindow()) {
             return;
         }
         setEnabled(isRunning());
@@ -79,7 +79,7 @@ public class StripedProcessButton extends AppCompatButton implements Animatable 
 
     @Override
     public boolean isRunning() {
-        return stripedDrawable.isRunning();
+        return isAttachedToWindow() && stripedDrawable.isRunning();
     }
 
     private void animateButton(boolean start) {
