@@ -168,6 +168,7 @@ public class AnimatedStripedDrawable extends Drawable {
             return;
         }
         running = true;
+        initAnimator();
         animator.start();
         setShowStripes(true);
         invalidateSelf();

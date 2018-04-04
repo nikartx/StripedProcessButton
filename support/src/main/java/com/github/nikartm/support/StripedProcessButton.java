@@ -16,6 +16,7 @@ import com.github.nikartm.support.constant.Constants;
 public class StripedProcessButton extends AppCompatButton implements Animatable {
 
     private AnimatedStripedDrawable stripedDrawable;
+    private State state;
 
     private long startAnimDuration = Constants.NO_INIT;
     private long stopAnimDuration = Constants.NO_INIT;
@@ -48,6 +49,21 @@ public class StripedProcessButton extends AppCompatButton implements Animatable 
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         defaultText = getText() != null ? getText().toString() : "";
+        launchAnimationWithDelay();
+    }
+
+    // Launch animation with delay when view attached to window
+    private void launchAnimationWithDelay() {
+        switch (state) {
+            case START:
+                start();
+                break;
+            case STOP:
+                stop();
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
@@ -59,6 +75,7 @@ public class StripedProcessButton extends AppCompatButton implements Animatable 
 
     @Override
     public void start() {
+        state = State.START;
         if (isRunning() || !isAttachedToWindow()) {
             return;
         }
@@ -69,6 +86,7 @@ public class StripedProcessButton extends AppCompatButton implements Animatable 
 
     @Override
     public void stop() {
+        state = State.STOP;
         if (!isRunning() || !isAttachedToWindow()) {
             return;
         }
@@ -151,6 +169,13 @@ public class StripedProcessButton extends AppCompatButton implements Animatable 
         this.buttonAnimation = buttonAnimation;
         invalidate();
         return this;
+    }
+
+    /**
+     * State of launch methods with delay
+     */
+    private enum State {
+        START, STOP
     }
 
 }
