@@ -16,7 +16,7 @@ import com.github.nikartm.support.constant.Constants;
 public class StripedProcessButton extends AppCompatButton implements Animatable {
 
     private AnimatedStripedDrawable stripedDrawable;
-    private State state;
+    private State state = State.STOP;
 
     private long startAnimDuration = Constants.NO_INIT;
     private long stopAnimDuration = Constants.NO_INIT;
