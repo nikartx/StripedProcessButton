@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 27
@@ -17,7 +18,28 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+}
 
+allprojects {
+    tasks.withType(Javadoc).all { enabled = false }
+}
+if (JavaVersion.current().isJava8Compatible()) {
+    allprojects {
+        tasks.withType(Javadoc) {
+            options.addStringOption('Xdoclint:none', '-quiet')
+        }
+    }
+}
+
+publish {
+    userOrg = 'nikart'
+    groupId = 'com.github.nikartm'
+    artifactId = 'process-button'
+    publishVersion = '1.0.0'
+    desc = 'Android library. Animated striped button to show loading process.'
+    licences = ['Apache-2.0']
+    uploadName='StripedProcessButton'
+    website = 'https://github.com/nikartm/StripedProcessButton'
 }
 
 dependencies {
