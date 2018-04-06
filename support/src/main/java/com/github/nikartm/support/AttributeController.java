@@ -53,10 +53,18 @@ class AttributeController {
         }
     }
 
+    /**
+     * Get striped drawable when init attrs
+     * @return initialized with attrs the animated drawable
+     */
     public AnimatedStripedDrawable getStripedDrawable() {
         return drawable;
     }
 
+    /**
+     * Get initialized the loading text
+     * @return loading text
+     */
     public String getLoadingText() {
         return loadingText;
     }

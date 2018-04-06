@@ -127,44 +127,78 @@ public class StripedProcessButton extends AppCompatButton implements Animatable 
         setText(currentText);
     }
 
+    /**
+     * Adjust the striped drawable with animation
+     * @return striped drawable
+     */
     public AnimatedStripedDrawable adjustButton() {
         return stripedDrawable;
     }
 
+    /**
+     * Get current start animation duration
+     * @return start duration in ms
+     */
     public long getStartAnimDuration() {
         return startAnimDuration;
     }
 
+    /**
+     * Set start animation duration in ms
+     */
     public StripedProcessButton setStartAnimDuration(long startAnimDuration) {
         this.startAnimDuration = startAnimDuration;
         invalidate();
         return this;
     }
 
+    /**
+     * Get current stop animation duration
+     * @return stop duration in ms
+     */
     public long getStopAnimDuration() {
         return stopAnimDuration;
     }
 
+    /**
+     * Set stop animation duration in ms
+     */
     public StripedProcessButton setStopAnimDuration(long stopAnimDuration) {
         this.stopAnimDuration = stopAnimDuration;
         invalidate();
         return this;
     }
 
+    /**
+     * Get text when button has loading state
+     * @return loading text
+     */
     public String getLoadingText() {
         return loadingText;
     }
 
+    /**
+     * Set text when button has loading state
+     * @param loadingText text when loading started
+     */
     public StripedProcessButton setLoadingText(String loadingText) {
         this.loadingText = loadingText;
         invalidate();
         return this;
     }
 
+    /**
+     * Get button stripe animation state
+     * @return true if button can be animated
+     */
     public boolean isButtonAnimation() {
         return buttonAnimation;
     }
 
+    /**
+     * Set button stripe animation state
+     * @param buttonAnimation if tru button can be animated
+     */
     public StripedProcessButton setButtonAnimation(boolean buttonAnimation) {
         this.buttonAnimation = buttonAnimation;
         invalidate();
