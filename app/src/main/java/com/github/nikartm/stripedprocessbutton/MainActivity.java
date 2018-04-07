@@ -27,7 +27,9 @@ public class MainActivity extends AppCompatActivity {
 
         stripedButton.setOnClickListener(v -> stripedButton.start());
         btnStop.setOnClickListener(v -> stripedButton.stop());
-        stripedButton.adjustButton().setStripeWidth(20).setStripeGradient(false);
+
+//        stripedButton.setStripeWidth(13).setStripeGradient(false);
+//        stripedButton.start();
 
         btn_2.start();
         btn_3.start();

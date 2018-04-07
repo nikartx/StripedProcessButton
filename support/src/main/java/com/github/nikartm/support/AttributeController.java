@@ -13,11 +13,10 @@ import com.github.nikartm.support.constant.Constants;
  */
 class AttributeController {
 
-    private AnimatedStripedDrawable drawable;
-    private String loadingText;
+    private StripedDrawable stripedDrawable;
 
     public AttributeController(Context context, AttributeSet attrs) {
-        drawable = new AnimatedStripedDrawable(context);
+        stripedDrawable = new StripedDrawable();
         initAttrs(context, attrs);
     }
 
@@ -35,9 +34,9 @@ class AttributeController {
             boolean stripeRevert = typedArray.getBoolean(R.styleable.StripedProcessButton_spb_stripeRevert, Constants.REVERT);
             boolean showStripes = typedArray.getBoolean(R.styleable.StripedProcessButton_spb_showStripes, Constants.SHOW_STRIPES);
             boolean stripeGradient = typedArray.getBoolean(R.styleable.StripedProcessButton_spb_stripeGradient, Constants.GRADIENT);
-            loadingText = typedArray.getString(R.styleable.StripedProcessButton_spb_loadingText);
+            String loadingText = typedArray.getString(R.styleable.StripedProcessButton_spb_loadingText);
 
-            drawable.setStripeWidth(stripeWidth)
+            stripedDrawable.setStripeWidth(stripeWidth)
                     .setStripeAlpha(stripeAlpha)
                     .setTilt(stripeTilt)
                     .setStripeDuration(stripeDuration)
@@ -47,26 +46,19 @@ class AttributeController {
                     .setCornerRadius(cornerRadius)
                     .setStripeRevert(stripeRevert)
                     .setShowStripes(showStripes)
-                    .setStripeGradient(stripeGradient);
+                    .setStripeGradient(stripeGradient)
+                    .setLoadingText(loadingText);
         } finally {
             typedArray.recycle();
         }
     }
 
     /**
-     * Get striped drawable when init attrs
-     * @return initialized with attrs the animated drawable
+     * Get {@link StripedDrawable} when attrs initialized
+     * @return initialized {@link StripedDrawable}
      */
-    public AnimatedStripedDrawable getStripedDrawable() {
-        return drawable;
-    }
-
-    /**
-     * Get initialized the loading text
-     * @return loading text
-     */
-    public String getLoadingText() {
-        return loadingText;
+    public StripedDrawable getStripedDrawable() {
+        return stripedDrawable;
     }
 
 }
