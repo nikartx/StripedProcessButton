@@ -28,11 +28,22 @@ public class MainActivity extends AppCompatActivity {
         stripedButton.setOnClickListener(v -> stripedButton.start());
         btnStop.setOnClickListener(v -> stripedButton.stop());
 
+//        initStripedButton();
+
 //        stripedButton.setStripeWidth(13).setStripeGradient(false);
 //        stripedButton.start();
 
         btn_2.start();
         btn_3.start();
         btn_4.start();
+    }
+
+    private void initStripedButton() {
+        stripedButton.setCornerRadius(50)
+                .setStripeAlpha(0.7f)
+                .setStripeRevert(true)
+                .setStripeGradient(false)
+                .setTilt(15)
+                .start();
     }
 }

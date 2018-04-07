@@ -1,0 +1,75 @@
+# StripedProcessButton
+Library for creating process loading button with stripes
+## Download
+Add to gradle root:
+```
+buildscript {
+    repositories {
+        jcenter()
+    }
+}
+```
+Download via Gradle:
+```
+implementation 'com.github.nikartm:process-button:1.0.1'
+```
+or Maven:
+```
+<dependency>
+  <groupId>com.github.nikartm</groupId>
+  <artifactId>process-button</artifactId>
+  <version>1.0.1</version>
+  <type>pom</type>
+</dependency>
+```
+## Screenshots
+![screenshots](https://raw.githubusercontent.com/nikartm/StripedProcessButton/master/screenshots/screenshot.gif)
+## How to use?
+Adjust the xml view [More examples.](https://github.com/nikartm/StripedProcessButton/blob/master/app/src/main/res/layout/activity_main.xml):
+```
+<com.github.nikartm.support.StripedProcessButton
+    android:id="@+id/btn_4"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:text="Start process"
+    tools:spb_showStripes="true"
+    app:spb_loadingText="Loading..."
+    app:spb_stripeGradient="false"
+    app:spb_stripeWidth="30dp"
+    app:spb_stripeTilt="35"
+    app:spb_background="#888888"
+    app:spb_mainStripColor="#212121"
+    app:spb_subStripeColor="#ffffff"
+    app:spb_stripeDuration="120"
+    android:textColor="#ffffff" />
+```
+Adjust programmatically:
+```
+stripedButton.setCornerRadius(50)
+        .setStripeAlpha(0.7f)
+        .setStripeRevert(true)
+        .setStripeGradient(false)
+        .setTilt(15)
+        .start();
+```
+
+## License
+Copyright 2018 Ivan Vodyasov
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
