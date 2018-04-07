@@ -23,7 +23,7 @@ or Maven:
 </dependency>
 ```
 ## Screenshots
-![screenshots](https://raw.githubusercontent.com/nikartm/StripedProcessButton/master/screenshots/screenshot.gif)
+![screenshots](https://raw.githubusercontent.com/nikartm/StripedProcessButton/master/screenshots/sct.gif)
 ## How to use?
 Adjust the xml view [More examples.](https://github.com/nikartm/StripedProcessButton/blob/master/app/src/main/res/layout/activity_main.xml):
 ```
@@ -49,7 +49,7 @@ Adjust the xml view [More examples.](https://github.com/nikartm/StripedProcessBu
     app:spb_stripeDuration="120"
     android:textColor="#ffffff" />
 ```
-Adjust programmatically:
+Adjust programmatically (shortly):
 ```
 stripedButton.setCornerRadius(50)
         .setStripeAlpha(0.7f)
