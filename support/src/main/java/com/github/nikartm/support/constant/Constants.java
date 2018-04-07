@@ -11,7 +11,7 @@ public class Constants {
 
     public static final float STRIPE_WIDTH = 13f;
     public static final float STRIPE_ALPHA = 0.3f;
-    public static final int CORNER = 25;
+    public static final int CORNER = 0;
     public static final int STRIPE_TILT = 40;
     public static final int DURATION = 250;
     public static final boolean REVERT = false;
