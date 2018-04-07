@@ -35,7 +35,7 @@ publish {
     userOrg = 'nikart'
     groupId = 'com.github.nikartm'
     artifactId = 'process-button'
-    publishVersion = '1.0.0'
+    publishVersion = '1.0.1'
     desc = 'Android library. Animated striped button to show loading process.'
     licences = ['Apache-2.0']
     uploadName='StripedProcessButton'
