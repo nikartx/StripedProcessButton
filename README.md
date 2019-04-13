@@ -1,3 +1,5 @@
+[![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-StripedProcessButton-green.svg?style=flat )]( https://android-arsenal.com/details/1/7623 )
+
 # StripedProcessButton
 Library for creating process loading button with stripes
 ## Download
