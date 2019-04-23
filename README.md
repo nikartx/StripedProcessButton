@@ -1,4 +1,4 @@
-[![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-StripedProcessButton-green.svg?style=flat )]( https://android-arsenal.com/details/1/7623 )
+[![Download](https://api.bintray.com/packages/nikart/maven/StripedProcessButton/images/download.svg) ](https://bintray.com/nikart/maven/StripedProcessButton/_latestVersion) [![](https://jitpack.io/v/nikartm/StripedProcessButton.svg)](https://jitpack.io/#nikartm/StripedProcessButton) [![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21) [![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-StripedProcessButton-green.svg?style=flat )]( https://android-arsenal.com/details/1/7623 )
 
 # StripedProcessButton
 Library for creating process loading button with stripes
@@ -11,19 +11,15 @@ buildscript {
     }
 }
 ```
-Download via Gradle:
+Download:
 ```
 implementation 'com.github.nikartm:process-button:1.0.1'
 ```
-or Maven:
+AndroidX support:
 ```
-<dependency>
-  <groupId>com.github.nikartm</groupId>
-  <artifactId>process-button</artifactId>
-  <version>1.0.1</version>
-  <type>pom</type>
-</dependency>
+implementation 'com.github.nikartm:process-button:2.0.0'
 ```
+
 ## Screenshots
 ![screenshots](https://raw.githubusercontent.com/nikartm/StripedProcessButton/master/screenshots/sct_ex.gif)
 ## How to use?
