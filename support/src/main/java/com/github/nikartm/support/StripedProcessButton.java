@@ -3,7 +3,7 @@ package com.github.nikartm.support;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.drawable.Animatable;
-import android.support.v7.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatButton;
 import android.util.AttributeSet;
 
 import com.github.nikartm.support.constant.Constants;
