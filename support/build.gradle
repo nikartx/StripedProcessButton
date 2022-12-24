@@ -1,14 +1,29 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'kotlin-android'
+
+ext {
+    PUBLISH_GROUP_ID = 'io.github.nikartm'
+    PUBLISH_VERSION = '3.0.0'
+    PUBLISH_ARTIFACT_ID = 'process-button'
+    PUBLISH_DESCRIPTION = 'Android library. Animated striped button to show loading process.'
+    PUBLISH_URL = 'https://github.com/nikartm/StripedProcessButton'
+    PUBLISH_LICENSE_NAME = 'The Apache Software License, Version 2.0'
+    PUBLISH_LICENSE_URL = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    PUBLISH_DEVELOPER_ID = 'ivanv'
+    PUBLISH_DEVELOPER_NAME = 'Ivan Vodyasov'
+    PUBLISH_DEVELOPER_EMAIL = 'jvissun@gmail.com'
+    PUBLISH_SCM_CONNECTION = 'scm:git:github.com/nikartm/StripedProcessButton.git'
+    PUBLISH_SCM_DEVELOPER_CONNECTION = 'scm:git:ssh://github.com/nikartm/StripedProcessButton.git'
+    PUBLISH_SCM_URL = 'https://github.com/nikartm/StripedProcessButton/tree/master'
+}
+
+apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"
 
 android {
-    compileSdkVersion 28
-
+    compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 1
-        versionName "2.0.0"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
     }
 
     buildTypes {
@@ -17,32 +32,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-}
 
-allprojects {
-    tasks.withType(Javadoc).all { enabled = false }
-}
-if (JavaVersion.current().isJava8Compatible()) {
-    allprojects {
-        tasks.withType(Javadoc) {
-            options.addStringOption('Xdoclint:none', '-quiet')
-        }
+    kotlinOptions {
+        jvmTarget = rootProject.ext.javaVersion
     }
-}
 
-publish {
-    userOrg = 'nikart'
-    groupId = 'com.github.nikartm'
-    artifactId = 'process-button'
-    publishVersion = android.defaultConfig.versionName
-    desc = 'Android library. Animated striped button to show loading process.'
-    licences = ['Apache-2.0']
-    uploadName='StripedProcessButton'
-    website = 'https://github.com/nikartm/StripedProcessButton'
+    compileOptions {
+        targetCompatibility rootProject.ext.javaVersion
+        sourceCompatibility rootProject.ext.javaVersion
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13.2'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation rootProject.ext.dependencies.coreKtx
 }
