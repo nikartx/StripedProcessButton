@@ -1,47 +1,47 @@
-package com.github.nikartm.support;
+package com.github.nikartm.support
 
-import android.animation.Animator;
-import android.view.View;
-import android.view.ViewAnimationUtils;
+import android.view.View
+import android.view.ViewAnimationUtils
 
 /**
  * @author Ivan V on 29.03.2018.
- * @version 1.0
+ * @version 2.0
  */
-class Util {
+internal object Util {
 
-    private static final int MAX_ALPHA = 255;
-    private static final int MIN_ALPHA = 0;
+    private const val MAX_PERCENT = 100f
+    private const val MAX_ALPHA = 255
+    private const val MIN_ALPHA = 0
 
-    public static int computeAlpha(float value) {
-        int result;
-        if (valueAlpha(value) >= MAX_ALPHA) {
-            result = MAX_ALPHA;
-        } else if (Float.floatToIntBits(value) < MIN_ALPHA) {
-            result = MIN_ALPHA;
-        } else {
-            result = (int) valueAlpha(value);
-        }
-        return result;
+    fun computeAlpha(value: Float): Int {
+        return if (compute(value) >= MAX_ALPHA) {
+                MAX_ALPHA
+            } else if (value < MIN_ALPHA) {
+                MIN_ALPHA
+            } else {
+                compute(value).toInt()
+            }
     }
 
-    private static float valueAlpha(float value) {
-        return MAX_ALPHA * (value * 100f) / 100f;
+    private fun compute(value: Float): Float {
+        return MAX_ALPHA * (value * MAX_PERCENT) / MAX_PERCENT
     }
 
     /**
      * Animation for the striped process button
      */
-    static class Animation {
-
-        public static void animateView(View view, boolean start, long duration) {
-            int cx = start ? view.getWidth() / 2 : 0;
-            int cy = view.getHeight() / 2;
-            int finalRadius = Math.max(view.getWidth(), view.getHeight());
-
-            Animator anim = ViewAnimationUtils.createCircularReveal(view, cx, cy, 0, finalRadius);
-            anim.setDuration(duration);
-            anim.start();
+    internal object Animation {
+        @JvmStatic
+        fun animateView(view: View, start: Boolean, duration: Long) {
+            val cX = if (start) view.width / 2 else 0
+            val cY = view.height / 2
+            val finalRadius = Math.max(view.width, view.height)
+            ViewAnimationUtils
+                .createCircularReveal(view, cX, cY, 0f, finalRadius.toFloat())
+                .apply {
+                    this.duration = duration
+                    start()
+                }
         }
     }
 }

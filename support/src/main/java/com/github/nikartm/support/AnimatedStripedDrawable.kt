@@ -1,177 +1,136 @@
-package com.github.nikartm.support;
+package com.github.nikartm.support
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ValueAnimator;
-import android.graphics.Canvas;
-import android.graphics.ColorFilter;
-import android.graphics.LinearGradient;
-import android.graphics.Paint;
-import android.graphics.PixelFormat;
-import android.graphics.Rect;
-import android.graphics.RectF;
-import android.graphics.Shader;
-import android.graphics.drawable.Drawable;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import android.animation.ValueAnimator
+import android.graphics.*
+import android.graphics.drawable.Drawable
+import androidx.core.animation.doOnRepeat
 
 /**
  * Animated striped drawable
  * @author Ivan V on 30.03.2018.
- * @version 1.0
+ * @version 2.0
  */
-public class AnimatedStripedDrawable extends Drawable {
+internal class AnimatedStripedDrawable(private val stripedDrawable: StripedDrawable) : Drawable() {
 
-    private int viewHeight;
-    private int viewWidth;
-    private float tiltLeft = 0f;
-    private float tiltRight = 0f;
-    private boolean running = false;
+    private var viewHeight = 0
+    private var viewWidth = 0
+    private var tiltLeft = 0f
+    private var tiltRight = 0f
+    private var animator: ValueAnimator? = null
+    private var stripesShader: Shader? = null
 
-    private StripedDrawable drawable;
-    private ValueAnimator animator;
-    private Shader stripesShader;
-
-    public AnimatedStripedDrawable(StripedDrawable drawable) {
-        this.drawable = drawable;
-    }
-
-    @Override
-    protected void onBoundsChange(Rect bounds) {
-        super.onBoundsChange(bounds);
-        viewHeight = bounds.height();
-        viewWidth = bounds.width();
-        adjustStripes();
-    }
-
-    private void adjustStripes() {
-        if (!drawable.isStripeRevert()) {
-            tiltLeft = drawable.getTilt();
-            tiltRight = 0;
-        } else {
-            tiltRight = drawable.getTilt();
-            tiltLeft = 0;
+    override fun onBoundsChange(bounds: Rect) {
+        super.onBoundsChange(bounds)
+        with(bounds) {
+            viewHeight = height()
+            viewWidth = width()
         }
+        adjustStripes()
     }
 
-    private void initAnimator() {
+    private fun adjustStripes() = with(stripedDrawable) {
+        tiltLeft = if (!isStripeRevert) tilt else 0f
+        tiltRight = if (isStripeRevert) tilt else 0f
+    }
+
+    private fun initAnimator() = with(stripedDrawable) {
         if (animator == null) {
-            animator = ValueAnimator.ofInt(0, 1);
-            animator.setRepeatCount(ValueAnimator.INFINITE);
-            animator.setDuration(drawable.getStripeDuration());
-            animator.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationRepeat(Animator animation) {
-                    shiftColor(drawable.getColorMain(), drawable.getColorSub());
-                    invalidateSelf();
+            animator = ValueAnimator.ofInt(0, 1).apply {
+                repeatCount = ValueAnimator.INFINITE
+                duration = stripeDuration.toLong()
+                doOnRepeat {
+                    shiftColor(colorMain, colorSub)
+                    invalidateSelf()
                 }
-            });
+            }
         }
     }
 
-    @Override
-    public int getIntrinsicWidth() {
-        return viewWidth > 0 ? viewWidth : super.getIntrinsicWidth();
+    override fun getIntrinsicWidth(): Int {
+        return if (viewWidth > 0) viewWidth else super.getIntrinsicWidth()
     }
 
-    @Override
-    public int getIntrinsicHeight() {
-        return viewHeight > 0 ? viewHeight : super.getIntrinsicHeight();
+    override fun getIntrinsicHeight(): Int {
+        return if (viewHeight > 0) viewHeight else super.getIntrinsicHeight()
     }
 
-    @Override
-    public void setAlpha(int alpha) {}
+    override fun setAlpha(alpha: Int) {}
 
-    @Override
-    public void setColorFilter(@Nullable ColorFilter colorFilter) {}
+    override fun setColorFilter(colorFilter: ColorFilter?) {}
 
-    @Override
-    public int getOpacity() {
-        return PixelFormat.TRANSLUCENT;
+    override fun getOpacity(): Int = PixelFormat.TRANSLUCENT
+
+    override fun draw(canvas: Canvas) {
+        drawStripes(canvas)
+        startStripesAnimation()
     }
 
-    @Override
-    public void draw(@NonNull Canvas canvas) {
-        drawStripes(canvas);
-        startStripesAnimation();
+    private fun startStripesAnimation() {
+        if (isRunning()) start() else stop()
     }
 
-    private void startStripesAnimation() {
-        if (running) {
-            start();
-        } else {
-            drawable.setShowStripes(false);
+    private fun drawStripes(canvas: Canvas) = with(stripedDrawable) {
+        val paintBack = Paint(Paint.ANTI_ALIAS_FLAG)
+        val paintStripes = Paint(Paint.ANTI_ALIAS_FLAG)
+        val rect = Rect(0, 0, viewWidth, viewHeight)
+        val rectF = RectF(rect)
+        val stripesAlpha = Util.computeAlpha(stripeAlpha)
+        stripesShader = if (isStripeGradient) createGradientShader() else createShader()
+        paintBack.color = colorBack
+        val cornerRadius = cornerRadius
+        canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, paintBack)
+        if (isShowStripes) {
+            paintStripes.alpha = stripesAlpha
+            paintStripes.shader = stripesShader
+            canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, paintStripes)
         }
     }
 
-    private void drawStripes(Canvas canvas) {
-        final Paint paintBack = new Paint(Paint.ANTI_ALIAS_FLAG);
-        final Paint paintStripes = new Paint(Paint.ANTI_ALIAS_FLAG);
-        final Rect rect = new Rect(0, 0, viewWidth, viewHeight);
-        final RectF rectF = new RectF(rect);
-        final int stripesAlpha = Util.computeAlpha(drawable.getStripeAlpha());
-
-        if (drawable.isStripeGradient()) {
-            stripesShader = createGradientShader();
-        } else {
-            stripesShader = createShader();
-        }
-
-        paintBack.setColor(drawable.getColorBack());
-        float cornerRadius = drawable.getCornerRadius();
-        canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, paintBack);
-
-        if (drawable.isShowStripes()) {
-            paintStripes.setAlpha(stripesAlpha);
-            paintStripes.setShader(stripesShader);
-            canvas.drawRoundRect(rectF, cornerRadius, cornerRadius, paintStripes);
-        }
+    private fun createShader(): LinearGradient = with(stripedDrawable) {
+        val position = .5f
+        return LinearGradient(
+            stripeWidth,
+            tiltLeft,
+            0f,
+            tiltRight,
+            intArrayOf(colorMain, colorSub),
+            floatArrayOf(position, position),
+            Shader.TileMode.REPEAT
+        )
     }
 
-    @NonNull
-    private LinearGradient createShader() {
-        return new LinearGradient(drawable.getStripeWidth(), tiltLeft, 0, tiltRight,
-                new int[] { drawable.getColorMain(), drawable.getColorSub() }, new float[] { .5f, .5f },
-                Shader.TileMode.REPEAT);
+    private fun createGradientShader(): LinearGradient = with(stripedDrawable) {
+        return LinearGradient(
+            stripeWidth, tiltLeft, 0f, tiltRight,
+            colorMain, colorSub, Shader.TileMode.REPEAT
+        )
     }
 
-    @NonNull
-    private LinearGradient createGradientShader() {
-        return new LinearGradient(drawable.getStripeWidth(), tiltLeft, 0, tiltRight,
-                drawable.getColorMain(), drawable.getColorSub(), Shader.TileMode.REPEAT);
-    }
-
-    private void shiftColor(int mainColor, int subColor) {
-        drawable.setColorMain(subColor);
-        drawable.setColorSub(mainColor);
+    private fun shiftColor(mainColor: Int, subColor: Int) = with(stripedDrawable) {
+        colorMain = subColor
+        colorSub = mainColor
     }
 
     // Start stripes animation
-    protected void start() {
-        if (isRunning()) {
-            return;
-        }
-        running = true;
-        initAnimator();
-        animator.start();
-        drawable.setShowStripes(true);
-        invalidateSelf();
+    fun start() {
+        if (isRunning()) return
+        initAnimator()
+        animator?.start()
+        stripedDrawable.isShowStripes = true
+        invalidateSelf()
     }
 
     // Stop stripes animation
-    protected void stop() {
-        if (!isRunning()) {
-            return;
-        }
-        running = false;
-        animator.cancel();
-        drawable.setShowStripes(false);
-        invalidateSelf();
+    fun stop() {
+        if (!isRunning()) return
+        animator?.cancel()
+        animator = null
+        stripedDrawable.isShowStripes = false
+        invalidateSelf()
     }
 
     // Check if stripes animation running
-    protected boolean isRunning() {
-        return animator != null && animator.isStarted();
+    fun isRunning(): Boolean {
+        return animator?.isStarted == true
     }
-
 }
