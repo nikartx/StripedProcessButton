@@ -1,23 +1,25 @@
-[![Download](https://api.bintray.com/packages/nikart/maven/StripedProcessButton/images/download.svg) ](https://bintray.com/nikart/maven/StripedProcessButton/_latestVersion) [![](https://jitpack.io/v/nikartm/StripedProcessButton.svg)](https://jitpack.io/#nikartm/StripedProcessButton) [![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21) [![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-StripedProcessButton-green.svg?style=flat )]( https://android-arsenal.com/details/1/7623 ) [![Donate using PayPal](https://img.shields.io/badge/paypal-donate-blue.svg) ](https://www.paypal.me/ivodyasov)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.nikartm/image-support.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.nikartm%22%20AND%20a:%22image-support%22) [![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21) [![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-StripedProcessButton-green.svg?style=flat )]( https://android-arsenal.com/details/1/7623 )
 
 # StripedProcessButton
 Library for creating process loading button with stripes
+
 ## Download
 Add to gradle root:
 ```
-buildscript {
-    repositories {
-        jcenter()
-    }
+allprojects {
+  repositories {
+    mavenCentral()
+  }
 }
 ```
-Download:
+
+#### After migrating to MavenCentral, use Groove:
 ```
-implementation 'com.github.nikartm:process-button:1.0.1'
+implementation 'io.github.nikartm:process-button:$LAST_VERSION'
 ```
-AndroidX support:
+Or Kotlin DSL:
 ```
-implementation 'com.github.nikartm:process-button:2.0.0'
+implementation("io.github.nikartm:process-button:$LAST_VERSION")
 ```
 
 ## Screenshots
@@ -26,7 +28,7 @@ implementation 'com.github.nikartm:process-button:2.0.0'
 Adjust the xml view [More examples.](https://github.com/nikartm/StripedProcessButton/blob/master/app/src/main/res/layout/activity_main.xml):
 ```
 <com.github.nikartm.support.StripedProcessButton
-    android:id="@+id/btn_4"
+    android:id="@+id/stripedButton"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
@@ -54,11 +56,11 @@ stripedButton.setCornerRadius(50)
         .setStripeRevert(true)
         .setStripeGradient(false)
         .setTilt(15)
-        .start();
+        .start()
 ```
 
 ## License
-Copyright 2018 Ivan Vodyasov
+Copyright 2022 Ivan Vodyasov
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
